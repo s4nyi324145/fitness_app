@@ -1,0 +1,30 @@
+.exercises-container{
+    background-color: var(--bg-primary);
+    display: flex;
+    min-height: 100vh;
+}
+
+.exercises-main{
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding: 2rem;
+    gap: 2rem;
+
+}
+
+.exercises-title {
+    font-size: 2.5rem;
+    color: var(--text-primary);
+    margin: 0 0 0.5rem 0;
+    font-weight: 700;
+}
+
+
+.exercises-subtitle {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    margin: 0;
+    
+}
+

@@ -1,0 +1,15 @@
+:root {
+  --bg-primary: #1a1a2e;
+  --bg-secondary: #16213e;
+  --accent-primary: #ff6b35;    /* narancs */
+  --accent-secondary: #f7931e;  /* arany narancs */
+  --text-primary: #eaeaea;
+  --text-secondary: #c4c4c4;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}

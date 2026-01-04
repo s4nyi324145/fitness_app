@@ -1,0 +1,147 @@
+
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    width: 70px; 
+    background-color: var(--bg-secondary);
+    border-right: 1px solid rgba(255, 107, 53, 0.2);
+    transition: width 0.3s ease;
+    overflow: hidden;
+
+}
+
+.sidebar.expanded {
+    width: 250px; 
+    z-index: 1000;
+}
+
+
+.nav-links {
+    list-style: none;
+    padding: 20px 0;
+    margin: 0;
+}
+
+.nav-links li {
+    margin: 0;
+}
+
+
+.nav-item {
+    display: flex;
+    align-items: center;
+    padding: 16px 20px;
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border: none;
+    background: none;
+    width: 100%;
+    text-align: left;
+    gap: 20px; 
+    position: relative;
+}
+
+.nav-item:hover {
+    background-color: rgba(255, 107, 53, 0.1);
+    color: var(--accent-primary);
+}
+
+
+.nav-item.active {
+    background-color: rgba(255, 107, 53, 0.2);
+    color: var(--accent-primary);
+    border-left: 4px solid var(--accent-primary);
+}
+
+.nav-icon {
+    min-width: 10px; 
+    flex-shrink: 0;
+    transition: transform 0.3s ease;
+}
+
+
+.nav-title {
+    white-space: nowrap;
+    opacity: 0; 
+    transform: translateX(-10px); 
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+
+.sidebar.expanded .nav-title {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+
+.logout-btn {
+    margin-top: auto; 
+    border-top: 1px solid rgba(255, 107, 53, 0.2);
+}
+
+.logout-btn:hover {
+    background-color: rgba(245, 101, 101, 0.1);
+    color: #f56565;
+}
+
+.nav-item::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 4px;
+    background: var(--accent-primary);
+    transform: scaleY(0);
+    transition: transform 0.3s ease;
+}
+
+.nav-item:hover::before {
+    transform: scaleY(1);
+}
+
+
+@media (max-width: 768px) {
+    .sidebar {
+        bottom: 0;
+        top: auto;
+        width: 100%;
+        min-height: 60px;
+        border-right: none;
+        border-top: 1px solid rgba(255, 107, 53, 0.2);
+    }
+    
+    .sidebar.expanded {
+        width: 100%;
+    }
+    
+    .nav-links {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        padding: 0;
+    }
+    
+    .nav-item {
+        flex-direction: column;
+        padding: 8px;
+        gap: 4px;
+    }
+    
+    .nav-title {
+        font-size: 0.7rem;
+        transform: translateY(0);
+        opacity: 1; 
+    }
+    
+    .logout-btn{
+        border: none;
+    }
+}
+
+.nav-item:hover .nav-icon {
+    filter: drop-shadow(0 0 8px var(--accent-primary));
+}
