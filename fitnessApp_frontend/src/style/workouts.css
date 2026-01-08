@@ -1,0 +1,25 @@
+.workouts-container {
+    display: flex;
+    background-color: var(--bg-primary);
+    min-height: 100vh;
+}
+
+.workouts-main {
+    flex: 1;
+    padding: 2rem;
+    transition: margin-left 0.3s ease;
+}
+
+
+.workouts-header h1 {
+    font-size: 2.5rem;
+    color: var(--text-primary);
+    margin: 0 0 0.5rem 0;
+    font-weight: 700;
+}
+
+.workouts-header p {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    margin: 0;
+}

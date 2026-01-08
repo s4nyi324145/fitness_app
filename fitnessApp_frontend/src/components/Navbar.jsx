@@ -57,7 +57,7 @@ export default function Navbar() {
                         <span className="nav-title">Log out</span>
                     </button>
                 </li>
-                {console.log(user)}
+                {/*console.log(user)*/}
             </ul>
         </nav>
     );

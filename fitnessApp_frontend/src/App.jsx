@@ -8,6 +8,7 @@ import Login from './pages/Login.jsx'
 import ToastContainer from './components/Toast.jsx'
 import { BrowserRouter , Route, Routes } from 'react-router-dom'
 import Exercises from './pages/Exercises.jsx'
+import Workouts from './pages/Workouts.jsx'
 
 function App() {
  
@@ -23,6 +24,7 @@ function App() {
             <Route path='/login' element={<Login />} />
             <Route path='/dashboard' element={<Dashboard/>}/>
             <Route path='/exercises' element={<Exercises/>}/>
+            <Route path='/workouts' element={<Workouts/>}/>
           </Routes>
         </BrowserRouter>
         </ToastProvider>
