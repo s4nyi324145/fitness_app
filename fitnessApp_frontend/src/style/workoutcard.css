@@ -1,0 +1,130 @@
+.workoutcard {
+    background-color: var(--bg-secondary);
+    width: 320px;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    border-left: 4px solid var(--accent-primary);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.workoutcard:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 12px rgba(255, 107, 53, 0.4);
+}
+
+.workoutcard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(234, 234, 234, 0.1);
+}
+
+.workoutcard-header div {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.workoutcard-header div:first-child {
+    flex-direction: row;
+}
+
+.workoutcard-header p {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+.workoutcard-header div:last-child p {
+    font-size: 14px;
+    color: var(--text-secondary);
+    font-weight: 400;
+}
+
+.workoutcard-header svg {
+    width: 20px;
+    height: 20px;
+    color: var(--accent-primary);
+}
+
+.workoutcard-main {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.workoutcard-main div {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.workoutcard-main svg {
+    width: 18px;
+    height: 18px;
+    color: var(--accent-secondary);
+    flex-shrink: 0;
+}
+
+.workoutcard-main p {
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin: 0;
+    line-height: 1.4;
+}
+
+.workoutcard-buttons {
+    display: flex;
+    gap: 8px;
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid rgba(234, 234, 234, 0.1);
+}
+
+.workoutcard-buttons button {
+    flex: 1;
+    padding: 10px 16px;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+
+.btn-details {
+    background-color: var(--accent-primary);
+    color: var(--text-primary);
+}
+
+.btn-details:hover {
+    background-color: var(--accent-secondary);
+    transform: scale(1.05);
+}
+
+.btn-edit {
+    background-color: rgba(234, 234, 234, 0.1);
+    color: var(--text-primary);
+}
+
+.btn-edit:hover {
+    background-color: rgba(234, 234, 234, 0.2);
+}
+
+.btn-delete {
+    background-color: rgba(255, 59, 48, 0.1);
+    color: #ff3b30;
+}
+
+.btn-delete:hover {
+    background-color: rgba(255, 59, 48, 0.2);
+}

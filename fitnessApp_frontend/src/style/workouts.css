@@ -23,3 +23,11 @@
     color: var(--text-secondary);
     margin: 0;
 }
+
+.workouts-list{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+    justify-items: center;
+}
