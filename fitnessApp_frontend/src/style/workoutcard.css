@@ -1,6 +1,6 @@
 .workoutcard {
     background-color: var(--bg-secondary);
-    width: 320px;
+    width: 100%;
     border-radius: 12px;
     padding: 20px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
@@ -20,16 +20,17 @@
     margin-bottom: 16px;
     padding-bottom: 12px;
     border-bottom: 1px solid rgba(234, 234, 234, 0.1);
+    transition: all 0.5s;
+}
+
+.workoutcard:hover .workoutcard-header{
+    border-bottom: 1px solid var(--accent-primary);
 }
 
 .workoutcard-header div {
     display: flex;
     align-items: center;
     gap: 8px;
-}
-
-.workoutcard-header div:first-child {
-    flex-direction: row;
 }
 
 .workoutcard-header p {
@@ -84,6 +85,11 @@
     margin-top: 16px;
     padding-top: 16px;
     border-top: 1px solid rgba(234, 234, 234, 0.1);
+    transition: all 0.5s;
+}
+
+.workoutcard:hover .workoutcard-buttons{
+    border-top: 1px solid var(--accent-primary);
 }
 
 .workoutcard-buttons button {
@@ -127,4 +133,158 @@
 
 .btn-delete:hover {
     background-color: rgba(255, 59, 48, 0.2);
+}
+
+
+.workoutcard-edit {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding: 8px 0 16px 0;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.edit-input {
+    background-color: var(--bg-primary);
+    border: 2px solid rgba(255, 107, 53, 0.3);
+    border-radius: 8px;
+    padding: 12px 14px;
+    color: var(--text-primary);
+    font-size: 16px;
+    font-weight: 600;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.edit-input:focus {
+    outline: none;
+    border-color: var(--accent-primary);
+    box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.1);
+}
+
+.edit-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.edit-row svg {
+    color: var(--accent-secondary);
+    flex-shrink: 0;
+    margin-top: 12px;
+}
+
+.edit-input-small {
+    background-color: var(--bg-primary);
+    border: 2px solid rgba(255, 107, 53, 0.3);
+    border-radius: 8px;
+    padding: 10px 12px;
+    color: var(--text-primary);
+    font-size: 14px;
+    flex: 1;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.edit-input-small:focus {
+    outline: none;
+    border-color: var(--accent-primary);
+    box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.1);
+}
+
+.edit-textarea {
+    background-color: var(--bg-primary);
+    border: 2px solid rgba(255, 107, 53, 0.3);
+    border-radius: 8px;
+    padding: 10px 12px;
+    color: var(--text-primary);
+    font-size: 14px;
+    min-height: 80px;
+    resize: vertical;
+    flex: 1;
+    font-family: inherit;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.edit-textarea:focus {
+    outline: none;
+    border-color: var(--accent-primary);
+    box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.1);
+}
+
+.btn-save {
+    flex: 1;
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: white;
+    padding: 10px 16px;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    box-shadow: 0 2px 4px rgba(16, 185, 129, 0.2);
+}
+
+.btn-save:hover {
+    background: linear-gradient(135deg, #059669 0%, #047857 100%);
+    box-shadow: 0 4px 8px rgba(16, 185, 129, 0.3);
+}
+
+.btn-save:active {
+    transform: translateY(0);
+}
+
+.btn-cancel {
+    flex: 1;
+    background-color: rgba(234, 234, 234, 0.1);
+    color: var(--text-secondary);
+    padding: 10px 16px;
+    border: 2px solid rgba(234, 234, 234, 0.2);
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    transition: all 0.2s;
+}
+
+.btn-cancel:hover {
+    background-color: rgba(234, 234, 234, 0.2);
+    border-color: rgba(234, 234, 234, 0.3);
+}
+
+.btn-cancel:active {
+    transform: scale(0.98);
+}
+
+
+.edit-input::placeholder,
+.edit-input-small::placeholder,
+.edit-textarea::placeholder {
+    color: rgba(234, 234, 234, 0.4);
+}
+
+
+
+.edit-input-small[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(0.8);
+    cursor: pointer;
 }

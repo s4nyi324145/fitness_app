@@ -1,9 +1,11 @@
-import { Search, Dumbbell, Wrench, Plus } from 'lucide-react'
+import { Search, Dumbbell, Wrench, Plus, X,Calendar } from 'lucide-react'
 import '../style/filterBar.css'
 import { useEffect, useState } from 'react'
-import AddExerciseModal from './AddExerciseModal'
+import AddWorkoutModal from "../components/AddWorkoutModal"
 
-export default function WorkoutFilter({filter, onChangeFilter, clearFilters}) {
+export default function WorkoutFilter({filter, onChangeFilter, clearFilters, getAllWorkout}) {
+
+    const [isOpen, setIsOpen] = useState(false)
 
     const handleNameChange = (e) =>{
         onChangeFilter({...filter,name: e.target.value})
@@ -17,12 +19,14 @@ export default function WorkoutFilter({filter, onChangeFilter, clearFilters}) {
         onChangeFilter({...filter,endDate: e.target.value})
     }
 
-    const hasActiveFilter = (filter.name || filter.category || filter.equipment)
+    const hasActiveFilter = (filter.name || filter.startDate || filter.endDate)
+    
 
 
     return (
         
         <>
+            <AddWorkoutModal getAllWorkout={getAllWorkout} isOpen={isOpen} setIsOpen={setIsOpen}/>
             
             <div className="filter-bar">
 
@@ -41,28 +45,42 @@ export default function WorkoutFilter({filter, onChangeFilter, clearFilters}) {
 
 
     <div className="filters">
-
-        <div className="">
-            <Dumbbell size={18} />
-            <input type="date" value={filter.startDate} onChange={(e) => handleDateChange(e)} />
-        </div>
-
-        <div className="">
-            <Wrench size={18} className="" />
-            <input type="date" onChange={(e) => handleEndDateChange(e)} value={filter.endDate} />
-        </div>
+    <div className="date-input">
+        <Calendar size={18} />
+        <input 
+            type="date" 
+            value={filter.startDate} 
+            onChange={(e) => handleDateChange(e)} 
+            placeholder="Start date"
+        />
     </div>
-        
-    <button  className="add-button">
-        <Plus size={20} />
-        <span>Add Workout</span>
-    </button>
-    {hasActiveFilter && (
-        <button className="clear-filters-btn" onClick={clearFilters}>
-            Clear filters
-        </button>
-    )}
 
+    <div className="seperate-sign">
+        -
+    </div>
+
+    <div className="date-input">
+        <Calendar size={18} />
+        <input 
+            type="date" 
+            onChange={(e) => handleEndDateChange(e)} 
+            value={filter.endDate}
+            placeholder="End date"
+        />
+    </div>
+</div>
+
+<button className="add-button" onClick={() => setIsOpen(true)}>
+    <Plus size={20} />
+    <span>Add Workout</span>
+</button>
+
+{hasActiveFilter && (
+    <button className="clear-filters-btn" onClick={clearFilters}>
+        <X size={16} />
+        Clear filters
+    </button>
+)}
     
             </div>
 

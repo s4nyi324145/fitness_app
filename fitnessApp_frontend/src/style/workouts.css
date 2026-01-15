@@ -2,12 +2,14 @@
     display: flex;
     background-color: var(--bg-primary);
     min-height: 100vh;
+
 }
 
 .workouts-main {
     flex: 1;
     padding: 2rem;
     transition: margin-left 0.3s ease;
+   
 }
 
 
@@ -16,12 +18,14 @@
     color: var(--text-primary);
     margin: 0 0 0.5rem 0;
     font-weight: 700;
+   
 }
 
 .workouts-header p {
     font-size: 1.1rem;
     color: var(--text-secondary);
     margin: 0;
+    margin-bottom: 2rem;
 }
 
 .workouts-list{
@@ -29,5 +33,6 @@
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     gap: 2rem;
     margin-top: 2rem;
-    justify-items: center;
+    justify-items: start;
+    align-items: start;
 }

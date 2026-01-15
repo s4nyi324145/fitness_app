@@ -15,7 +15,7 @@ export default function Workouts(){
 
     })
 
-    const getAllWorkout = async() =>{
+    async function getAllWorkout(){
         
      try {
         const result = await api.get("/workouts/")
@@ -56,9 +56,9 @@ export default function Workouts(){
                 <h1>Workouts Library</h1>
                 <p>Your personal workouts database</p>
             </div>
-            <WorkoutFilter clearFilters={clearFilters} filter={filter} onChangeFilter={handleChange}/>
+            <WorkoutFilter clearFilters={clearFilters} getAllWorkout={getAllWorkout} filter={filter} onChangeFilter={handleChange}/>
             <div className="workouts-list">
-                    <WorkoutCard workouts={workouts} filter={filter} />
+                    <WorkoutCard setWorkouts={setWorkouts} workouts={workouts} filter={filter} />
             </div>
 
         </div>
