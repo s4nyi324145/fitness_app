@@ -48,6 +48,8 @@ const addSetToExercise = async (req, res) => {
             "DELETE FROM workout_sets WHERE workout_exercise_id = ?",
             [workoutExerciseId]
         );
+
+
         
         // 2. Ha vannak új set-ek, INSERT-eld őket
         if (sets.length > 0) {
@@ -56,11 +58,12 @@ const addSetToExercise = async (req, res) => {
                 set.set_number,
                 set.reps,
                 set.weight_kg || null,
-                set.notes || null
+                set.notes || null,
+                set.type || "working"
             ]);
             
             await pool.query(
-                "INSERT INTO workout_sets (workout_exercise_id, set_number, reps, weight_kg, notes) VALUES ?",
+                "INSERT INTO workout_sets (workout_exercise_id, set_number, reps, weight_kg, notes, type) VALUES ?",
                 [values]
             );
         }

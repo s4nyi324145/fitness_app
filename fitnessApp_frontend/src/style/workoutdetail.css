@@ -365,7 +365,7 @@
 
 .set-header {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
     gap: 0.75rem;
     margin-bottom: 0.5rem;
     padding: 0 0.5rem;
@@ -384,7 +384,7 @@
 
 .set-row {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
     gap: 0.75rem;
     animation: fadeIn 0.3s ease forwards;
  
@@ -521,7 +521,7 @@
 }
 
 
-.set-row span:last-child {
+.set-row  .setWeight {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -529,6 +529,50 @@
     color: var(--text-secondary);
     font-weight: 600;
 }
+
+
+.set-row .setType {
+    min-width: 5rem;
+    padding: 0.6rem 1rem;
+    border-radius: 0.5rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05rem;
+    text-align: center;
+    margin: auto;
+    border: 2px solid transparent;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor:pointer;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.2);
+}
+
+
+.set-row .working {
+    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+    color: white;
+    border-color: #dc2626;
+}
+
+.set-row .working:hover {
+    background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+    transform: scale(1.05);
+    box-shadow: 0 0.25rem 0.75rem rgba(239, 68, 68, 0.4);
+}
+
+
+.set-row .warmUp {
+    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+    color: white;
+    border-color: #d97706;
+}
+
+.set-row .warmUp:hover {
+    background: linear-gradient(135deg, #d97706 0%, #b45309 100%);
+    transform: scale(1.05);
+    box-shadow: 0 0.25rem 0.75rem rgba(245, 158, 11, 0.4);
+}
+
 
 
 

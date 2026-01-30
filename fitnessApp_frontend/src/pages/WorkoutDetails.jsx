@@ -16,6 +16,7 @@ function WorkoutDetailsPage() {
     const [openExerciseId, setOpenExerciseId] = useState(null)
     const [hasChanges, setHasChanges] = useState(false)
     const {showSucces, showWarning} = useToast()
+    const [nextTempId, setNextTempId] = useState(1);
 
     useEffect(() => {
         fetchWorkoutDetails();
@@ -58,6 +59,8 @@ function WorkoutDetailsPage() {
     }
 
     const addSetToExercise = (workoutExerciseId) => {
+        const tempId = `temp-${nextTempId}`;
+        setNextTempId(prev => prev + 1);
         setHasChanges(true)
         setExercises(prev => prev.map(exercise => 
             exercise.workout_exercise_id === workoutExerciseId
@@ -66,11 +69,12 @@ function WorkoutDetailsPage() {
                     sets: [
                         ...exercise.sets,
                         {
-                        
+                            set_id : tempId,
                             set_number: exercise.sets.length + 1,
                             reps: exercise.sets.reps,
                             weight_kg: exercise.sets.weight_kg,
-                            notes: null
+                            notes: null,
+                            type: "working"
                         }
                     ]
                 }
@@ -170,7 +174,19 @@ function WorkoutDetailsPage() {
                         <p>{workout.notes}</p>
                     </div>
                 )}
+
+                <div className="workout-summary">
+                    <div className="exercise">
+                        {exercises.length} Ex
+                    </div>
+                    <div className="sets">
+                    {exercises.reduce((sum, e) => sum + e.sets.length, 0)} Sets
+                    </div>
+
+                
+                </div>
             </div>
+            
             
             <div className="add-new-exercise">
                 <button onClick={() => {navigate("/exercises", {state: {adding: true, workoutId: workoutId }})}}>Add exercise to this workout</button>
@@ -222,14 +238,16 @@ function WorkoutDetailsPage() {
                                                                                                     set.set_id, 
                                                                                                     'reps', 
                                                                                                     e.target.value
+                                                                                            
                                                                                                 )} placeholder='0' />
                                                         </span>
-                                                        <span><input type="number" value={set.weight_kg} onChange={(e) => updateSetValue(
-                                        ex.workout_exercise_id, 
-                                        set.set_id, 
-                                        'weight_kg', 
-                                        e.target.value
-                                    )} placeholder='0'  /> kg</span>                               
+                                                        <span className='setWeight'><input type="number"  value={set.weight_kg} onChange={(e) => updateSetValue(
+                                                                                                                ex.workout_exercise_id, 
+                                                                                                                set.set_id, 
+                                                                                                                'weight_kg', 
+                                                                                                                e.target.value
+                                                                                                            )} placeholder='0'  /> kg</span>
+                                                        <span className={`setType ${set.type == "working" ? "working" : "warmUp"}`} onClick={() => updateSetValue(ex.workout_exercise_id, set.set_id, 'type', set.type == "working" ? "warmUp" : "working")}>{set.type == "working" ? "working" : "warmup"}</span>                               
                                                     </div>
                                                     ))}                                    
                                                 

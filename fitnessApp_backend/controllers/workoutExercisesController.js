@@ -68,7 +68,8 @@ const getWorkoutExercises = async (req, res) => {
                 ws.set_number,
                 ws.reps,
                 ws.weight_kg,
-                ws.notes
+                ws.notes,
+                ws.type
             FROM workout_exercises we
             JOIN exercises e ON we.exercise_id = e.id
             LEFT JOIN workout_sets ws ON ws.workout_exercise_id = we.id
@@ -88,7 +89,8 @@ const getWorkoutExercises = async (req, res) => {
                         set_number: row.set_number,
                         reps: row.reps,
                         weight_kg: row.weight_kg,
-                        notes: row.notes
+                        notes: row.notes,
+                        type: row.type
                     });
                 }
             } else {
@@ -103,7 +105,8 @@ const getWorkoutExercises = async (req, res) => {
                         set_number: row.set_number,
                         reps: row.reps,
                         weight_kg: row.weight_kg,
-                        notes: row.notes
+                        notes: row.notes,
+                        type: row.type
                     }] : []
                 });
             }

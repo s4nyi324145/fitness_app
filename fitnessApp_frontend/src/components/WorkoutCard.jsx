@@ -156,7 +156,7 @@ export default function WorkoutCard({workouts,setWorkouts, filter}){
                     </div>
                     <div>
                         <ScrollText />
-                        <p>{workout.notes}</p>
+                        <p>{!workout.notes ? "Add custom note" : workout.notes}</p>
                     </div>
                 </div>
                 <div className="workoutcard-buttons">
