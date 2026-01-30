@@ -4,6 +4,8 @@ import Navbar from "../components/Navbar"
 import ExerciseCard from "../components/ExerciseCard"
 import FilterBar from "../components/FilterBar"
 import { useState, useEffect } from "react"
+import { useLocation } from 'react-router-dom';
+import { useToast } from "../context/toastContext"
 import api from "../api/api"
 
 
@@ -17,6 +19,10 @@ export default function Exercises(){
     })
     const [exercises, setExercises] = useState([]);
     const [loading, setLoading] = useState(true);
+    const location = useLocation();
+    const [adding, setAdding] = useState(location.state?.adding)
+    const [addingExercises, setAddingExercises] = useState([])
+    const {showError,showSuccess} = useToast()
 
     async function getAllExercises() {
         
@@ -33,6 +39,8 @@ export default function Exercises(){
     useEffect(() => {
         getAllExercises();
     }, []);
+
+    useEffect(() => {console.log(addingExercises)},[addingExercises])
     
 
     const handleChange = (newfilter) =>{
@@ -47,12 +55,25 @@ export default function Exercises(){
         })
     }
 
+  
+
+    const addExercises = async() => {
+        try {
+            const result = await api.post(`/workouts/${location.state?.workoutId}/exercises`,{addingExercises})
+            showSuccess(result.data.message)
+            setAddingExercises([])
+            
+        } catch (error) {
+            showError(error.response.data.message)
+        }
+    }
+
 
 
     return(<>
         <div className="exercises-container">
             <Navbar />
-            
+           
             <div className="exercises-main">
                 <div className="exercises-header">
                     <h1>Exercise Library</h1>
@@ -60,9 +81,17 @@ export default function Exercises(){
                 </div>
                 
                 
-                <FilterBar getAllExercises={getAllExercises} filter={filter} onFilterChange={handleChange} clearFilters={clearFilters} /> 
+                <FilterBar getAllExercises={getAllExercises} adding={adding} filter={filter} onFilterChange={handleChange} clearFilters={clearFilters} /> 
                 
-             
+                {addingExercises.length > 0 && adding && (
+                     <div className="addExercise-info">
+                        <button onClick={() => addExercises()} className="addSelectedEx-btn">Add the selected exercises to your workout</button>
+                        <div className="countSelectedEx">
+                            <p className="selectedExCount">{addingExercises.length}</p>
+                            <p>selected exercise</p>
+                        </div>
+                    </div>
+                )}
                 
                 <div className="exercises-list">
 
@@ -73,11 +102,15 @@ export default function Exercises(){
                             <p>Loading exercises...</p>
                     </div>
                     
-                    ) : (<ExerciseCard  exercises={exercises} setExercises={setExercises} filter={filter}/>)}
+                    ) : (<ExerciseCard adding={adding} addingExercises={addingExercises} setAddingExercises={setAddingExercises}  exercises={exercises} setExercises={setExercises} filter={filter}/>)}
                    
                     
                  
                 </div>
+
+                
+
+
             </div>
 
 

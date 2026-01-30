@@ -1,7 +1,6 @@
 
 
 .exercise-card {
-    position: relative;
     background: var(--bg-secondary);
     border: 2px solid rgba(255, 255, 255, 0.05);
     border-radius: 1rem;
@@ -52,13 +51,10 @@
 
 
 .badge{
-    position: absolute;
     display: flex;
     align-items: center;
-    right: 1%;
     flex-wrap: wrap;
-    top: 28%;
-    gap: 2rem;
+    gap: 1rem;
 }
 
 .custom-badge {
@@ -83,6 +79,7 @@
     height: 42px;
     align-items: center;
     justify-content: center;
+    flex-wrap: wrap;
     color: var(--category-color);
     transition: all 0.3s ease;
 }
@@ -99,13 +96,14 @@
 
 .exercise-content {
     display: flex;
-    align-items: center;
+    flex: 1;
+    flex-wrap: wrap;
     gap: 1rem;
 }
 
 
 
-.exercise-icon {
+.exercise-icon, .add-icon {
     flex-shrink: 1;
     width: 48px;
     height: 48px;
@@ -124,10 +122,21 @@
     transform: rotate(10deg) scale(1.1);
 }
 
+.checked{
+    background-color: var(--category-color);
+    color: white;
+}
+
+.add-icon:hover{
+    background-color: var(--category-color);
+    color: white;
+}
+
 
 
 .exercise-info {
     flex: 1;
+    flex-wrap: wrap;
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
@@ -183,6 +192,7 @@
     
     .exercise-content {
         gap: 0.75rem;
+        
     }
     
     .exercise-icon {

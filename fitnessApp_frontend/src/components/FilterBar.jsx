@@ -3,7 +3,7 @@ import '../style/filterBar.css'
 import { useEffect, useState } from 'react'
 import AddExerciseModal from './AddExerciseModal'
 
-export default function FilterBar({filter,onFilterChange, clearFilters, getAllExercises}) {
+export default function FilterBar({filter,onFilterChange,adding, clearFilters, getAllExercises}) {
 
     function handleNameChange(e){
         onFilterChange({...filter,name: e.target.value}
@@ -80,10 +80,12 @@ export default function FilterBar({filter,onFilterChange, clearFilters, getAllEx
         </div>
     </div>
         
-    <button onClick={() => setIsOpen(prev => !prev)} className="add-button">
+    {!adding && (
+        <button onClick={() => setIsOpen(prev => !prev)} className="add-button">
         <Plus size={20} />
         <span>Add Exercise</span>
-    </button>
+        </button>
+    )}
 
     {hasActiveFilter && (
         <button className="clear-filters-btn" onClick={clearFilters}>

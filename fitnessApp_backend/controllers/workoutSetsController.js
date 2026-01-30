@@ -1,17 +1,35 @@
 import pool from '../config/db.js';
 
-// Set hozzáadása egy gyakorlathoz
+
 const addSetToExercise = async (req, res) => {
     const { workoutExerciseId } = req.params;  
     const user_id = req.user.id;
-    const { set_number, reps, weight_kg, notes } = req.body;
+    const { sets } = req.body; 
     
-    if (!set_number || !reps || weight_kg === undefined) {
-        return res.status(400).json({ message: 'set_number, reps, and weight_kg are required' });
+    console.log('Updating sets for exercise:', workoutExerciseId, sets);
+    
+    // Validáció
+    if (!sets || !Array.isArray(sets)) {
+        return res.status(400).json({ message: 'sets array is required' });
+    }
+    
+    // Ellenőrizd minden set-et
+    for (const set of sets) {
+        if (!set.set_number || !set.reps) {
+            return res.status(400).json({ 
+                message: 'set_number and reps are required for all sets' 
+            });
+        }
+        
+        if (set.weight_kg !== undefined && set.weight_kg < 0) {
+            return res.status(400).json({ 
+                message: 'weight_kg cannot be negative' 
+            });
+        }
     }
     
     try {
-        // Check ownership
+        // Ellenőrizd, hogy a workout_exercise létezik és a useré
         const [check] = await pool.query(`
             SELECT we.id 
             FROM workout_exercises we
@@ -20,25 +38,46 @@ const addSetToExercise = async (req, res) => {
         `, [workoutExerciseId, user_id]);
         
         if (check.length === 0) {
-            return res.status(404).json({ message: 'Exercise not found in workout or no permission' });
+            return res.status(404).json({ 
+                message: 'Exercise not found in workout or no permission' 
+            });
         }
         
-        const [result] = await pool.query(
-            "INSERT INTO workout_sets (workout_exercise_id, set_number, reps, weight_kg, notes) VALUES (?, ?, ?, ?, ?)",
-            [workoutExerciseId, set_number, reps, weight_kg, notes || null]
+        // 1. TÖRÖLD az összes régi set-et
+        await pool.query(
+            "DELETE FROM workout_sets WHERE workout_exercise_id = ?",
+            [workoutExerciseId]
         );
         
-        res.status(201).json({ 
-            message: 'Set added', 
-            setId: result.insertId 
+        // 2. Ha vannak új set-ek, INSERT-eld őket
+        if (sets.length > 0) {
+            const values = sets.map(set => [
+                workoutExerciseId,
+                set.set_number,
+                set.reps,
+                set.weight_kg || null,
+                set.notes || null
+            ]);
+            
+            await pool.query(
+                "INSERT INTO workout_sets (workout_exercise_id, set_number, reps, weight_kg, notes) VALUES ?",
+                [values]
+            );
+        }
+        
+        res.status(200).json({ 
+            message: `Sets updated successfully. ${sets.length} set(s) saved.`
         });
         
     } catch (error) {
-        res.status(500).json({ message: 'Server error', error: error.message });
+        console.error('Error updating sets:', error);
+        res.status(500).json({ 
+            message: 'Server error', 
+            error: error.message 
+        });
     }
 };
 
-// Set szerkesztése (ez MARAD ugyanaz, csak név változás)
 const editSet = async (req, res) => {
     const {id} = req.params;
     const user_id = req.user.id;
@@ -71,7 +110,7 @@ const editSet = async (req, res) => {
     }
 };
 
-// Set törlése (ez is MARAD, csak security check változik)
+
 const deleteSet = async (req, res) => {
     const {id} = req.params;
     const user_id = req.user.id;

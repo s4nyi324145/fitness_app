@@ -5,6 +5,6 @@ const router = express.Router();
 
 router.post('/workouts/:workoutId/exercises',authMiddleware , addExerciseToWorkout);
 router.get('/workouts/:workoutId/exercises',authMiddleware , getWorkoutExercises);
-router.delete('/workout-exercises/:workoutExerciseId',authMiddleware, removeExerciseFromWorkout);
+router.delete('/workouts/:workoutId/exercises/:exerciseId',authMiddleware, removeExerciseFromWorkout);
 
 export default router;

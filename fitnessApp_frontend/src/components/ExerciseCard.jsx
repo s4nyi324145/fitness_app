@@ -1,10 +1,9 @@
-import { Dumbbell, Target, Wrench, User, Trash2 } from 'lucide-react'
+import { Dumbbell, Target, Wrench, User, Trash2, Plus, Check } from 'lucide-react'
 import '../style/exerciseCard.css'
 import api from '../api/api'
 import { useEffect, useState } from 'react'
 import { useToast } from '../context/toastContext'
-import { useExercise } from '../hooks/useExercise'
-export default function ExerciseCard({filter, exercises, setExercises, loading}) {
+export default function ExerciseCard({filter, exercises, setExercises, adding, setAddingExercises, addingExercises}) {
 
     
     const [filteredList, setFilteredList] = useState([])
@@ -88,20 +87,7 @@ export default function ExerciseCard({filter, exercises, setExercises, loading})
                 
                 return(
                     <div key={exercise.id} className="exercise-card" style={{ '--category-color': getCategoryColor(exercise.category) }}>
-                    
-                {exercise.is_custom === 1 && (
-                    <div className='badge'>
-                        <div onClick={() => handleDelete(exercise.id)} className="delete-icon">
-                            <Trash2 size={40} />
-                        </div>
-                        <div className="custom-badge">
-                                
-                                <User size={14} />
-                                <span>Your Exercise</span>
-                        </div>
-                    
-                    </div>
-                )}
+
 
 
                 <div className="exercise-content">
@@ -126,6 +112,33 @@ export default function ExerciseCard({filter, exercises, setExercises, loading})
                             </span>
                         </div>
                     </div>
+
+                                                        
+                {exercise.is_custom === 1 && (
+                    <div className='badge'>
+                        {!adding && (<div onClick={() => handleDelete(exercise.id)} className="delete-icon">
+                            <Trash2 size={40} />
+                        </div>)} 
+                        <div className="custom-badge">
+                                
+                                <User size={14} />
+                                <span>Your Exercise</span>
+                        </div>
+                    
+                    </div>
+                )}
+
+                    {adding && (
+                    <div className={`add-icon ${addingExercises.includes(exercise.id) ? "checked" : ""}`} onClick={() => setAddingExercises(prev => prev.includes(exercise.id)
+                            ? prev.filter(id => id !== exercise.id)
+                            : [...prev, exercise.id]
+                        )
+                      }>
+                         {addingExercises.includes(exercise.id) ? <Check /> : <Plus />}
+                    </div>
+                    )}
+
+    
 
 
                 </div>

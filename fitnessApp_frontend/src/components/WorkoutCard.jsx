@@ -2,6 +2,7 @@ import { Award, Clock, ScrollText, Eye, Edit2, Trash2, Check, X, Calendar } from
 import { useEffect, useState } from "react"
 import "../style/workoutcard.css"
 import { useToast } from '../context/toastContext'
+import { useNavigate } from 'react-router-dom';
 import api from '../api/api';
 
 export default function WorkoutCard({workouts,setWorkouts, filter}){
@@ -10,6 +11,7 @@ export default function WorkoutCard({workouts,setWorkouts, filter}){
     const {showError,showSuccess} = useToast()
     const [editingId, setEditingId] = useState(null);
     const [editData, setEditData] = useState({});
+    const navigate = useNavigate()
 
     useEffect(() =>{
         let filtered = workouts
@@ -31,6 +33,7 @@ export default function WorkoutCard({workouts,setWorkouts, filter}){
 
 
     const handleDelete =  async (workoutId) => {
+        if(!window.confirm("Are you sure you want to delete this workout from your library?")) return null
         try {
             const result = await api.delete(`/workouts/${workoutId}`)
             showSuccess(result.data.message)
@@ -98,7 +101,7 @@ export default function WorkoutCard({workouts,setWorkouts, filter}){
                         <Calendar size={16} />
                         <input
                             type="date"
-                            value={editData.date ? editData.date.split('T')[0] : ''}
+                            value={editData.date}
                             onChange={(e) => setEditData({...editData, date: e.target.value})}
                             className="edit-input-small"
                         />
@@ -157,7 +160,7 @@ export default function WorkoutCard({workouts,setWorkouts, filter}){
                     </div>
                 </div>
                 <div className="workoutcard-buttons">
-                    <button className="btn-details">
+                    <button onClick={() => navigate(`/workouts/${workout.id}`)} className="btn-details">
                         <Eye size={16} />
                         Details
                     </button>

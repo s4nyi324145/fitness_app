@@ -7,6 +7,8 @@
 .exercises-main {
     flex: 1;
     padding: 2rem;
+    display: flex;
+    flex-direction: column;
     transition: margin-left 0.3s ease;
 }
 
@@ -90,4 +92,109 @@
 
 .exercises-empty p {
     margin: 0;
+}
+
+.exercises-main button{
+    display: flex;
+    margin-top: 1.5rem;
+}
+
+.addSelectedEx-btn {
+    margin-bottom: 1rem;
+    background: linear-gradient(135deg, #149167 0%, #059669 100%);
+    color: white;
+    font-size: 1rem;
+    font-weight: 600;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.75rem;
+    border: none;
+    outline: none;
+    display: flex;
+    cursor: pointer;
+    transition: all 0.3s ease-in;
+    
+
+    
+}
+
+.addSelectedEx-btn:hover {
+ 
+    box-shadow: 0 0.5rem 1.25rem rgba(16, 185, 129, 0.4);
+    background: linear-gradient(135deg, #059669 0%, #047857 100%);
+}
+
+
+
+
+@keyframes slideIn {
+    0% {
+        opacity: 0;
+        transform: translateX(-3rem) scale(0.9);
+    }
+    60% {
+        transform: translateX(0.5rem) scale(1.05);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0) scale(1);
+    }
+}
+
+
+.addSelectedEx-btn:disabled {
+    background: linear-gradient(135deg, #6b7280 0%, #4b5563 100%);
+    cursor: not-allowed;
+    opacity: 0.6;
+    transform: none;
+}
+
+.addSelectedEx-btn:disabled:hover {
+    transform: none;
+    box-shadow: 0 0.25rem 0.75rem rgba(107, 114, 128, 0.3);
+}
+
+
+.addSelectedEx-btn.loading {
+    pointer-events: none;
+}
+
+.addSelectedEx-btn.loading::before {
+    content: '';
+    position: absolute;
+    width: 1rem;
+    height: 1rem;
+    margin-right: 0.5rem;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-top-color: white;
+    border-radius: 50%;
+    animation: spin 0.6s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.addExercise-info{
+    display: flex;
+    flex: 1;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    animation: slideIn 0.6s linear forwards;
+}
+.countSelectedEx{
+    display: flex;
+    gap: 1rem;
+    padding: 0.75rem 1.5rem;
+    color: #ff6b35;
+    align-items: flex-end;
+}
+
+.selectedExCount{
+    font-size: 2.3rem;
+   
+}
+
+.countSelectedEx p:nth-child(2){
+    padding-bottom: 0.4rem;
 }
