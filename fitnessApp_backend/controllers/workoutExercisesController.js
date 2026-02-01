@@ -64,6 +64,7 @@ const getWorkoutExercises = async (req, res) => {
                 e.id as exercise_id,
                 e.name as exercise_name,
                 e.category,
+                e.equipment,
                 ws.id as set_id,
                 ws.set_number,
                 ws.reps,
@@ -100,6 +101,7 @@ const getWorkoutExercises = async (req, res) => {
                     exercise_id: row.exercise_id,
                     exercise_name: row.exercise_name,
                     category: row.category,
+                    equipment: row.equipment,
                     sets: row.set_id ? [{
                         set_id: row.set_id,
                         set_number: row.set_number,

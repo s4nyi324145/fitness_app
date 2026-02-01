@@ -71,8 +71,8 @@ function WorkoutDetailsPage() {
                         {
                             set_id : tempId,
                             set_number: exercise.sets.length + 1,
-                            reps: exercise.sets.reps,
-                            weight_kg: exercise.sets.weight_kg,
+                            reps: exercise.sets.reps || 0,
+                            weight_kg: exercise.sets.weight_kg || 0,
                             notes: null,
                             type: "working"
                         }
@@ -116,6 +116,8 @@ function WorkoutDetailsPage() {
     }
 
     const updateSetValue = (workoutExerciseId, setId, field, value) => {
+        if(!value) value = 0
+        console.log(value)
         setHasChanges(true)
         setExercises(prev => prev.map(exercise => 
             exercise.workout_exercise_id === workoutExerciseId
@@ -123,7 +125,7 @@ function WorkoutDetailsPage() {
                     ...exercise,
                     sets: exercise.sets.map(set => 
                         set.set_id === setId
-                            ? { ...set, [field]: value }
+                            ? { ...set, [field]: field === 'type' ? value : parseInt(value)  }
                             : set
                     )
                 }
@@ -132,6 +134,7 @@ function WorkoutDetailsPage() {
         
         
     };
+
 
     if (loading) return <div className="loading">Loading...</div>;
     if (!workout) return <div>Workout not found</div>;
@@ -177,13 +180,38 @@ function WorkoutDetailsPage() {
 
                 <div className="workout-summary">
                     <div className="exercise">
-                        {exercises.length} Ex
+                        <span className="stat-number">{exercises.length}</span>
+                        <span className="stat-label">Exercises</span>
                     </div>
+                    
                     <div className="sets">
-                    {exercises.reduce((sum, e) => sum + e.sets.length, 0)} Sets
+                        <span className="stat-number">
+                            {exercises.reduce((sum, e) => sum + e.sets.length, 0)}
+                        </span>
+                        <span className="stat-label">Sets</span>
                     </div>
-
-                
+                    
+                    <div className="reps">
+                        <span className="stat-number">
+                            {exercises.reduce((total, ex) => {
+                                return total + ex.sets.reduce((sum, set) => 
+                                    sum + (set.reps === "" ? 0 : parseInt(set.reps) || 0), 0
+                                );
+                            }, 0)}
+                        </span>
+                        <span className="stat-label">Reps</span>
+                    </div>
+                    
+                    <div className="weight">
+                        <span className="stat-number">
+                            {exercises.reduce((total, ex) => {
+                                return total + ex.sets.reduce((sum, set) => 
+                                    sum + (set.reps * (set.weight_kg === "" ? 0 : parseFloat(set.weight_kg) || 0)), 0
+                                );
+                            }, 0).toFixed(1)}
+                        </span>
+                        <span className="stat-label">Volume (kg)</span>
+                    </div>
                 </div>
             </div>
             
@@ -212,8 +240,15 @@ function WorkoutDetailsPage() {
 
                             return(
                                 <div key={index} className="workout-exercise-card">
-                                <div className="exercise-card-header">
-                                        <p>{ex.exercise_name}</p>
+                                <div className="exercise-card-header">                    
+                                        <div className='exercise-card-information'>
+                                            <p className='exerciseName'>{ex.exercise_name}</p>
+                                            <div className="exercise-type">
+                                                <span><p>{ex.category}</p></span>
+                                                <span><p>{ex.equipment}</p></span>
+                                            </div>
+                                        </div>  
+                                  
                                         <div className="exercise-card-icons">
                                             <button onClick={() => deleteExercise(ex.exercise_id)} className='btn-delete'><Trash2  size={16}/></button>
                                             {isOpen ? <ChevronUp className='droppdown-icon' onClick={() => {setOpenExerciseId(null)}} size={16}/> :<ChevronDown className='droppdown-icon' onClick={() => setOpenExerciseId(ex.exercise_id)} size={16} />}

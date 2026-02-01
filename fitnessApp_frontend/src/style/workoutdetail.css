@@ -177,11 +177,7 @@
     font-size: 14px;
 }
 
-.exercise-card-header p:first-child {
-    font-size: 18px;
-    font-weight: 600;
-    color: var(--accent-primary);
-}
+
 
 .exercise-card-header{
     display: flex;
@@ -290,13 +286,6 @@
     margin-bottom: 0.5rem;
 }
 
-.exercise-card-header > p {
-    font-size: 1.25rem;
-    font-weight: 600;
-    color: var(--text-primary);
-    margin: 0;
-    letter-spacing: 0.025rem;
-}
 
 .exercise-card-icons {
     display: flex;
@@ -589,7 +578,145 @@
 }
 
 
+.workout-summary {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
+    border-radius: 1rem;
+    border: 2px solid rgba(255, 107, 53, 0.2);
+    position: relative;
+    overflow: hidden;
+}
 
+
+.exercise,
+.sets,
+.reps,
+.weight {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    padding: 1.25rem 1rem;
+    background: linear-gradient(135deg, rgba(255, 107, 53, 0.1) 0%, rgba(247, 147, 30, 0.05) 100%);
+    border-radius: 0.75rem;
+    border: 2px solid rgba(255, 107, 53, 0.2);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.exercise::before,
+.sets::before,
+.reps::before,
+.weight::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 107, 53, 0.1), transparent);
+    transition: left 0.5s;
+}
+
+.exercise:hover::before,
+.sets:hover::before,
+.reps:hover::before,
+.weight:hover::before {
+    left: 100%;
+}
+
+.exercise:hover,
+.sets:hover,
+.reps:hover,
+.weight:hover {
+    transform: translateY(-0.25rem);
+    border-color: var(--accent-primary);
+    box-shadow: 0 0.5rem 1.5rem rgba(255, 107, 53, 0.3);
+}
+
+
+
+
+
+
+.exercise,
+.sets,
+.reps,
+.weight {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.05rem;
+}
+
+
+
+
+.stat-number {
+    font-size: 2.5rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+}
+
+.stat-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.075rem;
+}
+
+.exercise-card-info{
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.exercise-card-information{
+    display: flex;
+    flex-direction: column;
+}
+
+.workout-details-page  .exerciseName {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--accent-primary);
+}
+
+.exercise-type{
+    display: flex;
+    align-items: flex-start;
+    gap: 1.5rem;
+    margin-top: 0.5rem;
+
+}
+
+.exercise-type span{
+    font-size: 0.8rem;
+    background-color: var(--bg-primary);
+    color: var(--text-secondary);
+    border: 1px solid var(--text-secondary);
+    padding: 0.3rem;
+    padding-bottom: 0.4rem;
+    border-radius: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-variant: small-caps;
+}
 
 
 
